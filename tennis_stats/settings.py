@@ -59,7 +59,9 @@ ROOT_URLCONF = 'tennis_stats.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/tennis_stats/templates",  # Ensure this path points to your project-level templates folder
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +73,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'tennis_stats.wsgi.application'
 

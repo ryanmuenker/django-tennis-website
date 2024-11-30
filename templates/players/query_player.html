@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Player Stats</title>
+</head>
+<body>
+    <h1>Query Player Stats</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if players %}
+        <h2>Results:</h2>
+        <ul>
+        {% for player in players %}
+            <li>
+                <strong>{{ player.name }}</strong><br>
+                Ranking: {{ player.ranking }}<br>
+                Nationality: {{ player.nationality }}<br>
+                Age: {{ player.age }}<br>
+                Height: {{ player.height }} cm
+            </li>
+        {% endfor %}
+        </ul>
+    {% elif players is not None %}
+        <p>No players found.</p>
+    {% endif %}
+</body>
+</html>

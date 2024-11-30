@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('<int:player_id>/', views.player_detail, name='player_detail'),
+    path('query/', views.query_player, name='query_player'),  # The correct pattern for 'players/query/'
 ]

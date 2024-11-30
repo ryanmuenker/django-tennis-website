@@ -1,10 +1,19 @@
+from django.db.models import Q  # Import Q for complex queries
 from django.shortcuts import render
+from .models import AtpPlayer
+from .forms import PlayerQueryForm
 
-# Create your views here.
-from django.shortcuts import render
-from .models import Player
+def query_player(request):
+    form = PlayerQueryForm(request.GET or None)
+    players = None
 
-def player_detail(request, player_id):
-    player = Player.objects.get(id=player_id)
-    recent_matches = player.matches.all().order_by('-date')[:5]  # Last 5 matches
-    return render(request, 'players/player_detail.html', {'player': player, 'recent_matches': recent_matches})
+    if form.is_valid():
+        name = form.cleaned_data.get("name")
+        if name:
+            # Query both name_first and name_last fields
+            players = AtpPlayer.objects.filter(
+                Q(name_first__icontains=name) | Q(name_last__icontains=name)
+            )
+            print(players)  # Debugging output to ensure results are returned
+
+    return render(request, "players/query_player.html", {"form": form, "players": players})
