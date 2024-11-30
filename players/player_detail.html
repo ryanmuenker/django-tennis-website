@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ player.name }}</title>
+</head>
+<body>
+    <h1>{{ player.name }}</h1>
+    <p>Ranking: {{ player.ranking }}</p>
+    <p>Nationality: {{ player.nationality }}</p>
+    <p>Age: {{ player.age }}</p>
+    <p>Height: {{ player.height }} cm</p>
+
+    <h2>Recent Matches</h2>
+    <ul>
+        {% for match in recent_matches %}
+            <li>{{ match.date }}: {{ match.result }} vs {{ match.opponent }} ({{ match.score }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
