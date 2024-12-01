@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import AtpPlayers
+from players.models import AtpPlayers
 
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ('name_first', 'name_last', 'ranking', 'nationality', 'age', 'height')
+    list_display = ('player_id','name_first', 'name_last', 'hand', 'dob', 'ioc', 'height','wikidata_id')
 
 admin.site.register(AtpPlayers, PlayerAdmin)

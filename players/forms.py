@@ -7,15 +7,31 @@ class PlayerQueryForm(forms.Form):
         label='Player Name',
         widget=forms.TextInput(attrs={'placeholder': 'Enter player name'})
     )
-    ranking = forms.IntegerField(
+    dob = forms.IntegerField(
         required=False,
-        label='Ranking',
-        min_value=1,
-        widget=forms.NumberInput(attrs={'placeholder': 'Enter player ranking'})
+        label='Year of Birth',
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter year of birth (YYYY)'})
     )
-    nationality = forms.CharField(
+    hand = forms.CharField(
+        max_length=1,
+        required=False,
+        label='Handedness',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter hand (e.g., R or L)'})
+    )
+    ioc = forms.CharField(
+        max_length=3,
+        required=False,
+        label='Country Code (IOC)',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter country code (e.g., USA, FRA)'})
+    )
+    height = forms.IntegerField(
+        required=False,
+        label='Height (cm)',
+        widget=forms.NumberInput(attrs={'placeholder': 'Enter height in cm'})
+    )
+    wikidata_id = forms.CharField(
         max_length=50,
         required=False,
-        label='Nationality',
-        widget=forms.TextInput(attrs={'placeholder': 'Enter nationality'})
+        label='Wikidata ID',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Wikidata ID'})
     )

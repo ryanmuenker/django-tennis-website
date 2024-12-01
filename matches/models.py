@@ -2,7 +2,7 @@ from django.db import models
 
 class Match(models.Model):
     player = models.ForeignKey(
-        'players.AtpPlayer',  # String reference to avoid circular import
+        'players.AtpPlayers',  # String reference to avoid circular import
         on_delete=models.CASCADE,
         related_name="matches"
     )
