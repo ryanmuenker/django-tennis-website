@@ -132,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'  # URL prefix for static files
 
 STATICFILES_DIRS = [
-    BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/static"
+    BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/tennis_stats/static"
 ]
 
 
