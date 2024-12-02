@@ -1,68 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player Search</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
 </head>
 <body>
-    <h1>Search for a Player</h1>
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-    </form>
+    <header>
+        <h1>Player Search</h1>
+    </header>
+    <main>
+        <form method="get">
+            {{ form.as_p }}
+            <button type="submit">Search</button>
+        </form>
 
-    {% if players_with_matches %}
-        <h2>Search Results</h2>
-        {% for item in players_with_matches %}
-            <h3>{{ item.player.name_first }} {{ item.player.name_last }}</h3>
-            <p>Hand: {{ item.player.hand }}</p>
-            <p>Date of Birth: {{ item.player.dob }}</p>
-            <p>Nationality: {{ item.player.ioc }}</p>
-            <p>Height: {{ item.player.height }}</p>
-
-            {% if item.recent_matches %}
-                <h4>Recent Matches:</h4>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Tournament</th>
-                            <th>Date</th>
-                            <th>Round</th>
-                            <th>Opponent</th>
-                            <th>Score</th>
-                            <th>Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for match in item.recent_matches %}
-                            <tr>
-                                <td>{{ match.tourney_name }}</td>
-                                <td>{{ match.tourney_date }}</td>
-                                <td>{{ match.round }}</td>
-                                <td>
-                                    {% if match.winner_id == item.player.player_id %}
-                                        {{ match.loser_name }}
-                                    {% else %}
-                                        {{ match.winner_name }}
-                                    {% endif %}
-                                </td>
-                                <td>{{ match.score }}</td>
-                                <td>
-                                    {% if match.winner_id == item.player.player_id %}
-                                        Win
-                                    {% else %}
-                                        Loss
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <p>No recent matches found.</p>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <p>No players found.</p>
-    {% endif %}
+        {% if players %}
+            <h2>Search Results</h2>
+            <ul>
+                {% for player in players %}
+                    <li>
+                        <a href="{% url 'player_matches' player.player_id %}">
+                            <strong>{{ player.name_first }} {{ player.name_last }}</strong>
+                        </a>
+                        <p><strong>Hand:</strong> {{ player.hand }}</p>
+                        <p><strong>Date of Birth:</strong> {{ player.dob }}</p>
+                        <p><strong>Nationality:</strong> {{ player.ioc }}</p>
+                        <p><strong>Height:</strong> {{ player.height }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No players found</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Player Search</p>
+    </footer>
 </body>
 </html>

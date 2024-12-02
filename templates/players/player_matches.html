@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ player.name_first }} {{ player.name_last }}</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+</head>
+<body>
+    <header>
+        <h1>{{ player.name_first }} {{ player.name_last }}</h1>
+    </header>
+    <main>
+        <p><strong>Hand:</strong> {{ player.hand }}</p>
+        <p><strong>Date of Birth:</strong> {{ player.dob }}</p>
+        <p><strong>Nationality:</strong> {{ player.ioc }}</p>
+        <p><strong>Height:</strong> {{ player.height }}</p>
+        <p><strong>Wikidata ID:</strong> {{ player.wikidata_id }}</p>
+
+        <h2>Matches in 2023</h2>
+        {% if matches_2023 %}
+            <ul>
+                {% for match in matches_2023 %}
+                <li>
+                    {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found for 2023.</p>
+        {% endif %}
+
+        <h2>Matches in 2024</h2>
+        {% if matches_2024 %}
+            <ul>
+                {% for match in matches_2024 %}
+                <li>
+                    {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matches found for 2024.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Player Search</p>
+    </footer>
+</body>
+</html>

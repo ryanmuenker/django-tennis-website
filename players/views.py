@@ -1,12 +1,12 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from players.models import AtpPlayers
-from players.models import AtpMatches2023, AtpMatches2024
 from players.forms import PlayerQueryForm
+from .models import AtpPlayers, AtpMatches2023, AtpMatches2024
 
 def query_player(request):
     form = PlayerQueryForm(request.GET or None)
-    players_with_matches = []
+    players = None  # Initialize players as None
 
     if form.is_valid():
         # Retrieve form inputs
@@ -39,31 +39,27 @@ def query_player(request):
         # Query the AtpPlayers table
         players = AtpPlayers.objects.filter(query)
 
-        # Fetch recent matches for each player
-        for player in players:
-            recent_matches_2023 = AtpMatches2023.objects.filter(
-                Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
-            ).order_by('-tourney_date')[:5]
-
-            recent_matches_2024 = AtpMatches2024.objects.filter(
-                Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
-            ).order_by('-tourney_date')[:5]
-
-            # Combine matches from both years and sort by date
-            recent_matches = sorted(
-                list(recent_matches_2023) + list(recent_matches_2024),
-                key=lambda match: match.tourney_date,
-                reverse=True
-            )
-
-            players_with_matches.append({
-                'player': player,
-                'recent_matches': recent_matches[:5]  # Limit to 5 matches
-            })
-
-    # Pass the form, players, and matches to the template
+    # Pass only the form and players to the template
     return render(
         request,
         "players/query_player.html",
-        {"form": form, "players_with_matches": players_with_matches}
+        {"form": form, "players": players}
     )
+
+def player_matches(request, player_id):
+    player = get_object_or_404(AtpPlayers, player_id=player_id)
+
+    matches_2023 = AtpMatches2023.objects.filter(
+        Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
+    ).order_by('-tourney_date')
+
+    matches_2024 = AtpMatches2024.objects.filter(
+        Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
+    ).order_by('-tourney_date')
+
+    context = {
+        'player': player,
+        'matches_2023': matches_2023,
+        'matches_2024': matches_2024,
+    }
+    return render(request, 'players/player_matches.html', context)
