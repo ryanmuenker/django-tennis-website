@@ -1,13 +1,15 @@
-from django.db.models import Q  # Import Q for complex queries
+from django.db.models import Q
 from django.shortcuts import render
 from players.models import AtpPlayers
-from .forms import PlayerQueryForm
+from players.models import AtpMatches2023, AtpMatches2024
+from players.forms import PlayerQueryForm
 
 def query_player(request):
     form = PlayerQueryForm(request.GET or None)
-    players = None
+    players_with_matches = []
 
     if form.is_valid():
+        # Retrieve form inputs
         name = form.cleaned_data.get("name")
         dob = form.cleaned_data.get("dob")
         hand = form.cleaned_data.get("hand")
@@ -15,20 +17,14 @@ def query_player(request):
         height = form.cleaned_data.get("height")
         wikidata_id = form.cleaned_data.get("wikidata_id")
 
-        # Build the query dynamically
+        # Build the dynamic query
         query = Q()
         if name:
-            # Split the name input into parts (e.g., "Carlos Alcaraz" -> ["Carlos", "Alcaraz"])
             name_parts = name.split()
             if len(name_parts) == 1:
-                # If only one name part, search in both name_first and name_last
                 query &= Q(name_first__icontains=name) | Q(name_last__icontains=name)
             else:
-                # If two or more name parts, combine queries for both fields
-                first_name_query = Q(name_first__icontains=name_parts[0])
-                last_name_query = Q(name_last__icontains=name_parts[1])
-                query &= first_name_query & last_name_query
-
+                query &= Q(name_first__icontains=name_parts[0]) & Q(name_last__icontains=name_parts[1])
         if dob:
             query &= Q(dob=dob)
         if hand:
@@ -40,6 +36,34 @@ def query_player(request):
         if wikidata_id:
             query &= Q(wikidata_id__icontains=wikidata_id)
 
+        # Query the AtpPlayers table
         players = AtpPlayers.objects.filter(query)
 
-    return render(request, "players/query_player.html", {"form": form, "players": players})
+        # Fetch recent matches for each player
+        for player in players:
+            recent_matches_2023 = AtpMatches2023.objects.filter(
+                Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
+            ).order_by('-tourney_date')[:5]
+
+            recent_matches_2024 = AtpMatches2024.objects.filter(
+                Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
+            ).order_by('-tourney_date')[:5]
+
+            # Combine matches from both years and sort by date
+            recent_matches = sorted(
+                list(recent_matches_2023) + list(recent_matches_2024),
+                key=lambda match: match.tourney_date,
+                reverse=True
+            )
+
+            players_with_matches.append({
+                'player': player,
+                'recent_matches': recent_matches[:5]  # Limit to 5 matches
+            })
+
+    # Pass the form, players, and matches to the template
+    return render(
+        request,
+        "players/query_player.html",
+        {"form": form, "players_with_matches": players_with_matches}
+    )
