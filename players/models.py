@@ -130,3 +130,18 @@ class AtpMatches2024(models.Model):
     class Meta:
         managed = False
         db_table = 'atp_matches_2024'
+
+class AtpRankingsCurrent(models.Model):
+    ranking_date = models.IntegerField(blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    player = models.OneToOneField(  # Use OneToOneField to represent a primary key relationship
+        AtpPlayers,
+        on_delete=models.CASCADE,
+        db_column='player',  # Maps to the `player` column in the database
+        primary_key=True  # Explicitly set this as the primary key
+    )
+    points = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False  # Ensure no migrations are applied for this table
+        db_table = 'atp_rankings_current'

@@ -7,4 +7,5 @@ urlpatterns = [
     path('player/<int:player_id>/', views.player_matches, name='player_matches'),  # New URL pattern
     path('match/<int:match_id>/<str:year>/', views.match_details, name='match_details'),
     path('', home, name='home'),  # Home page
+    path('rankings/', views.rankings, name='rankings'),
 ]

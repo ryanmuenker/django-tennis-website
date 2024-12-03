@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from players.models import AtpPlayers
 from players.forms import PlayerQueryForm
-from .models import AtpPlayers, AtpMatches2023, AtpMatches2024
+from .models import AtpPlayers, AtpMatches2023, AtpMatches2024, AtpRankingsCurrent
 import requests
 
 def query_player(request):
@@ -93,3 +93,20 @@ def match_details(request, match_id, year):
 
 def home(request):
     return render(request, "home.html")
+
+def rankings(request):
+    # Get the most recent ranking date
+    latest_date = AtpRankingsCurrent.objects.latest('ranking_date').ranking_date
+
+    # Query the top 100 rankings for the most recent date
+    rankings = (
+        AtpRankingsCurrent.objects.filter(ranking_date=latest_date)
+        .select_related('player')  # Ensure related player data is fetched
+        .order_by('rank')[:100]  # Limit to the top 100
+    )
+
+    context = {
+        'rankings': rankings,
+    }
+    return render(request, 'players/rankings.html', context)
+
