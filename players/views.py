@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from players.models import AtpPlayers
 from players.forms import PlayerQueryForm
 from .models import AtpPlayers, AtpMatches2023, AtpMatches2024
+import requests
 
 def query_player(request):
     form = PlayerQueryForm(request.GET or None)
@@ -49,6 +50,7 @@ def query_player(request):
 def player_matches(request, player_id):
     player = get_object_or_404(AtpPlayers, player_id=player_id)
 
+    # Fetch matches for 2023 and 2024
     matches_2023 = AtpMatches2023.objects.filter(
         Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
     ).order_by('-tourney_date')
@@ -57,10 +59,24 @@ def player_matches(request, player_id):
         Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
     ).order_by('-tourney_date')
 
+    # Fetch Wikipedia image using wikidata_id
+    wikidata_image_url = None
+    if player.wikidata_id:
+        wikidata_url = f"https://www.wikidata.org/wiki/Special:EntityData/{player.wikidata_id}.json"
+        response = requests.get(wikidata_url)
+        if response.status_code == 200:
+            data = response.json()
+            entity = data.get('entities', {}).get(player.wikidata_id, {})
+            claims = entity.get('claims', {})
+            if 'P18' in claims:  # P18 is the property for an image in Wikidata
+                image_name = claims['P18'][0]['mainsnak']['datavalue']['value']
+                wikidata_image_url = f"https://commons.wikimedia.org/wiki/Special:FilePath/{image_name}"
+
     context = {
         'player': player,
         'matches_2023': matches_2023,
         'matches_2024': matches_2024,
+        'wikidata_image_url': wikidata_image_url,  # Add image URL to context
     }
     return render(request, 'players/player_matches.html', context)
 

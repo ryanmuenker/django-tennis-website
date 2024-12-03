@@ -12,38 +12,92 @@
         <h1>{{ player.name_first }} {{ player.name_last }}</h1>
     </header>
     <main>
+        <!-- Display Wikipedia Image -->
+        {% if wikidata_image_url %}
+            <img src="{{ wikidata_image_url }}" alt="{{ player.name_first }} {{ player.name_last }}" width="200">
+        {% endif %}
+
+        <!-- Display Player Details -->
         <p><strong>Hand:</strong> {{ player.hand }}</p>
         <p><strong>Date of Birth:</strong> {{ player.dob }}</p>
         <p><strong>Nationality:</strong> {{ player.ioc }}</p>
         <p><strong>Height:</strong> {{ player.height }}</p>
         <p><strong>Wikidata ID:</strong> {{ player.wikidata_id }}</p>
 
+        <!-- Matches in 2023 -->
         <h2>Matches in 2023</h2>
         {% if matches_2023 %}
-            <ul>
-                {% for match in matches_2023 %}
-                <li>
-                    <a href="{% url 'match_details' match.id '2023' %}">
-                        {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tournament</th>
+                        <th>Date</th>
+                        <th>Round</th>
+                        <th>Opponent</th>
+                        <th>Score</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matches_2023 %}
+                        <tr>
+                            <td>{{ match.tourney_name }}</td>
+                            <td>{{ match.tourney_date }}</td>
+                            <td>{{ match.round }}</td>
+                            <td>
+                                {% if match.winner_id == player.player_id %}
+                                    {{ match.loser_name }}
+                                {% else %}
+                                    {{ match.winner_name }}
+                                {% endif %}
+                            </td>
+                            <td>{{ match.score }}</td>
+                            <td>
+                                <a href="{% url 'match_details' match.id '2023' %}">View Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <p>No matches found for 2023.</p>
         {% endif %}
 
+        <!-- Matches in 2024 -->
         <h2>Matches in 2024</h2>
         {% if matches_2024 %}
-            <ul>
-                {% for match in matches_2024 %}
-                <li>
-                    <a href="{% url 'match_details' match.id '2024' %}">
-                        {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tournament</th>
+                        <th>Date</th>
+                        <th>Round</th>
+                        <th>Opponent</th>
+                        <th>Score</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for match in matches_2024 %}
+                        <tr>
+                            <td>{{ match.tourney_name }}</td>
+                            <td>{{ match.tourney_date }}</td>
+                            <td>{{ match.round }}</td>
+                            <td>
+                                {% if match.winner_id == player.player_id %}
+                                    {{ match.loser_name }}
+                                {% else %}
+                                    {{ match.winner_name }}
+                                {% endif %}
+                            </td>
+                            <td>{{ match.score }}</td>
+                            <td>
+                                <a href="{% url 'match_details' match.id '2024' %}">View Details</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <p>No matches found for 2024.</p>
         {% endif %}
