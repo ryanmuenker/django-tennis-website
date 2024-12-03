@@ -90,3 +90,6 @@ def match_details(request, match_id, year):
         match = None
 
     return render(request, "players/match_details.html", {"match": match})
+
+def home(request):
+    return render(request, "home.html")

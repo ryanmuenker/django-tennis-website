@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Tennis Stats</h1>
+    </header>
+    <main>
+        <p>Explore our player statistics and rankings.</p>
+        <ul>
+            <li><a href="{% url 'query_player' %}">Search for Players</a></li>
+            <li><a href="#">View Rankings</a></li> <!-- Update if you add a rankings view -->
+        </ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tennis Stats</p>
+    </footer>
+</body>
+</html>

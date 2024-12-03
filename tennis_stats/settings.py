@@ -60,7 +60,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/tennis_stats/templates",  # Ensure this path points to your project-level templates folder
+            BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/django-tennis-website/templates",  # Ensure this path points to your project-level templates folder
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -132,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'  # URL prefix for static files
 
 STATICFILES_DIRS = [
-    BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/tennis_stats/static"
+    BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/django-tennis-website/static"
 ]
 
 
