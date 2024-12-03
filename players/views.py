@@ -63,3 +63,14 @@ def player_matches(request, player_id):
         'matches_2024': matches_2024,
     }
     return render(request, 'players/player_matches.html', context)
+
+def match_details(request, match_id, year):
+    # Determine which year's match table to query
+    if year == "2023":
+        match = get_object_or_404(AtpMatches2023, id=match_id)
+    elif year == "2024":
+        match = get_object_or_404(AtpMatches2024, id=match_id)
+    else:
+        match = None
+
+    return render(request, "players/match_details.html", {"match": match})

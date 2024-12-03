@@ -23,7 +23,9 @@
             <ul>
                 {% for match in matches_2023 %}
                 <li>
-                    {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                    <a href="{% url 'match_details' match.id '2023' %}">
+                        {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                    </a>
                 </li>
                 {% endfor %}
             </ul>
@@ -36,7 +38,9 @@
             <ul>
                 {% for match in matches_2024 %}
                 <li>
-                    {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                    <a href="{% url 'match_details' match.id '2024' %}">
+                        {{ match.tourney_name }}: {{ match.winner_name }} vs {{ match.loser_name }} ({{ match.score }})
+                    </a>
                 </li>
                 {% endfor %}
             </ul>

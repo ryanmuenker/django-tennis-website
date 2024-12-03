@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Details</title>
+    <link rel="stylesheet" href="{% static 'css/general.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Match Details</h1>
+    </header>
+    <main>
+        <table border="1" class="match-details-table-horizontal">
+            <thead>
+                <tr>
+                    <th>Tournament</th>
+                    <th>Date</th>
+                    <th>Round</th>
+                    <th>Surface</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ match.tourney_name }}</td>
+                    <td>{{ match.tourney_date }}</td>
+                    <td>{{ match.round }}</td>
+                    <td>{{ match.surface }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Player Results</h2>
+        <table border="1" class="match-details-table-horizontal">
+            <thead>
+                <tr>
+                    <th>Winner</th>
+                    <th>Loser</th>
+                    <th>Score</th>
+                    <th>Match Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ match.winner_name }}</td>
+                    <td>{{ match.loser_name }}</td>
+                    <td>{{ match.score }}</td>
+                    <td>{{ match.minutes }} minutes</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Stats</h2>
+        <table border="1" class="match-details-table-horizontal">
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Aces</th>
+                    <th>Double Faults</th>
+                    <th>First Serve Points Won</th>
+                    <th>Second Serve Points Won</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ match.winner_name }} (Winner)</td>
+                    <td>{{ match.w_ace }}</td>
+                    <td>{{ match.w_df }}</td>
+                    <td>{{ match.w_1stwon }}</td>
+                    <td>{{ match.w_2ndwon }}</td>
+                </tr>
+                <tr>
+                    <td>{{ match.loser_name }} (Loser)</td>
+                    <td>{{ match.l_ace }}</td>
+                    <td>{{ match.l_df }}</td>
+                    <td>{{ match.l_1stwon }}</td>
+                    <td>{{ match.l_2ndwon }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 Player Search</p>
+    </footer>
+</body>
+</html>
