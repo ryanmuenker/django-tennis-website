@@ -1,46 +1,75 @@
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #e8f5e9; /* Light green to represent tennis courts */
+    color: #333;
 }
 
 header {
-    background-color: #333;
+    background-color: #2e7d32; /* Dark green for tennis theme */
     color: white;
-    padding: 10px 20px;
+    padding: 20px;
     text-align: center;
+    border-bottom: 5px solid #c8e6c9; /* Light green border */
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+header nav a:hover {
+    color: #c8e6c9; /* Light green hover effect */
 }
 
 main {
-    max-width: 800px;
+    max-width: 90%;
     margin: 20px auto;
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border: 3px solid #2e7d32; /* Dark green border */
 }
 
 form {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 form input, form button {
-    padding: 10px;
-    margin: 5px 0;
+    padding: 12px;
+    margin: 10px 5px;
     font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
 
 form button {
-    background-color: #007BFF;
+    background-color: #388e3c; /* Darker green for buttons */
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 form button:hover {
-    background-color: #0056b3;
+    background-color: #1b5e20; /* Dark green hover effect */
 }
 
 ul {
@@ -49,76 +78,87 @@ ul {
 }
 
 li {
-    background: #f9f9f9;
+    background: #f1f8e9; /* Subtle green for list items */
     margin: 10px 0;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #2e7d32;
 }
 
 a {
     text-decoration: none;
-    color: #007BFF;
+    color: #388e3c;
+    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #1b5e20;
 }
 
 footer {
     text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #333;
+    padding: 20px;
+    background-color: #2e7d32;
     color: white;
+    margin-top: 30px;
 }
 
-.match-details-table {
-    width: 80%;
+/* Rankings Table Styling */
+.rankings-table {
+    width: 100%;
     margin: 20px auto;
     border-collapse: collapse;
+    font-size: 18px;
+    border: 2px solid #2e7d32;
+    background-color: #f1f8e9; /* Subtle green for the table */
 }
 
-.match-details-table th, .match-details-table td {
+.rankings-table th, .rankings-table td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.match-details-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-.match-details-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.match-details-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.match-details-table-horizontal {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-
-.match-details-table-horizontal th, .match-details-table-horizontal td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    padding: 15px;
     text-align: center;
 }
 
-.match-details-table-horizontal th {
-    background-color: #f4f4f4;
+.rankings-table th {
+    background-color: #388e3c; /* Dark green for headers */
+    color: white;
     font-weight: bold;
+    font-size: 1.2em;
+    text-transform: uppercase;
 }
 
-.match-details-table-horizontal tr:nth-child(even) {
-    background-color: #f9f9f9;
+.rankings-table tr:nth-child(even) {
+    background-color: #e8f5e9; /* Alternate row color for readability */
 }
 
-.match-details-table-horizontal tr:hover {
-    background-color: #f1f1f1;
+.rankings-table tr:hover {
+    background-color: #c8e6c9; /* Light green for hover */
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 20px;
+    padding: 10px;
+}
+
+/* Button Styling for Links */
+button, .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    background-color: #388e3c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+button:hover, .btn:hover {
+    background-color: #1b5e20;
 }

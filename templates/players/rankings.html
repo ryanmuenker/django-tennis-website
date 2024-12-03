@@ -16,36 +16,31 @@
         </nav>
     </header>
     <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rank</th>
-                    <th>Name</th>
-                    <th>Points</th>
-                    <th>Hand</th>
-                    <th>Date of Birth</th>
-                    <th>Nationality</th>
-                    <th>Height</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for ranking in rankings %}
-                <tr>
-                    <td>{{ ranking.rank }}</td>
-                    <td>
-                        <a href="{% url 'player_matches' ranking.player.player_id %}">
-                            {{ ranking.player.name_first }} {{ ranking.player.name_last }}
-                        </a>
-                    </td>
-                    <td>{{ ranking.points }}</td>
-                    <td>{{ ranking.player.hand }}</td>
-                    <td>{{ ranking.player.dob }}</td>
-                    <td>{{ ranking.player.ioc }}</td>
-                    <td>{{ ranking.player.height }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <button onclick="window.history.back()">Go Back</button>\
+        <div class="table-container">
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ranking in rankings %}
+                    <tr>
+                        <td>{{ ranking.rank }}</td>
+                        <td>
+                            <a href="{% url 'player_matches' ranking.player.player_id %}">
+                                {{ ranking.player.name_first }} {{ ranking.player.name_last }}
+                            </a>
+                        </td>
+                        <td>{{ ranking.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </main>
     <footer>
         <p>&copy; 2024 Player Rankings</p>
