@@ -59,9 +59,7 @@ ROOT_URLCONF = 'tennis_stats.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/django-tennis-website/templates",  # Ensure this path points to your project-level templates folder
-        ],
+        'DIRS': [BASE_DIR / "templates"],  # This points to the top-level templates folder
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,9 +83,9 @@ WSGI_APPLICATION = 'tennis_stats.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'football_database',  # Replace with your MySQL database name
+        'NAME': 'tennis_database2',  # Replace with your MySQL database name
         'USER': 'root',     # Replace with your MySQL username
-        'PASSWORD': 'Ryanmuenker1',  # Replace with your MySQL password
+        'PASSWORD': '203Tobias250798',  # Replace with your MySQL password
         'HOST': 'localhost',           # Use '127.0.0.1' if running locally
         'PORT': '3306',                # Default MySQL port
     }
@@ -132,7 +130,7 @@ USE_TZ = True
 STATIC_URL = '/static/'  # URL prefix for static files
 
 STATICFILES_DIRS = [
-    BASE_DIR / "/Users/ryanmuenker/Desktop/School/DESIGNING AND USING DATABSES/DJANGO/tennis_website/django-tennis-website/static"
+    BASE_DIR / 'static',  # This assumes a 'static' folder in your project root
 ]
 
 
@@ -140,3 +138,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'

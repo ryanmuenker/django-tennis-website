@@ -5,6 +5,7 @@ from players.forms import PlayerQueryForm
 from .models import AtpPlayers, AtpMatches2023, AtpMatches2024, AtpRankingsCurrent
 import requests
 
+
 def query_player(request):
     form = PlayerQueryForm(request.GET or None)
     players = None  # Initialize players as None
@@ -59,6 +60,13 @@ def player_matches(request, player_id):
         Q(winner_id=player.player_id) | Q(loser_id=player.player_id)
     ).order_by('-tourney_date')
 
+    # Calculate wins and losses
+    total_wins = AtpMatches2023.objects.filter(winner_id=player.player_id).count() + \
+                 AtpMatches2024.objects.filter(winner_id=player.player_id).count()
+
+    total_losses = AtpMatches2023.objects.filter(loser_id=player.player_id).count() + \
+                   AtpMatches2024.objects.filter(loser_id=player.player_id).count()
+
     # Fetch Wikipedia image using wikidata_id
     wikidata_image_url = None
     if player.wikidata_id:
@@ -77,6 +85,8 @@ def player_matches(request, player_id):
         'matches_2023': matches_2023,
         'matches_2024': matches_2024,
         'wikidata_image_url': wikidata_image_url,  # Add image URL to context
+        'total_wins': total_wins,
+        'total_losses': total_losses,
     }
     return render(request, 'players/player_matches.html', context)
 
